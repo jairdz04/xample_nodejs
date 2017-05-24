@@ -1,0 +1,11 @@
+{
+  "name": "node_api",
+  "description": "Complete web api",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "body-parser": "^1.17.2",
+    "express": "latest",
+    "mysql": "latest"
+  }
+}
