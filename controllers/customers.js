@@ -1,10 +1,11 @@
+//var connection = require("../controllers/connection.js");
 var mysql = require("mysql");
 var connection = mysql.createPool({
 		connectionLimit: 50,
 		host: 'localhost',
         user: 'root',
         password : '',
-        database:''
+        database:'nodejs'
 });
 
 exports.getCustomers = function (request, response){
@@ -44,7 +45,7 @@ exports.postCustomer = function(request, response){
 				if(error){
 					console.log("error inserting");
 				}else{
-					console.log("Created");
+					response.json({"messagge": "insert hecho"});
 					response.redirect("/customers");
 				}
 			});
@@ -71,7 +72,7 @@ exports.updateCustomer = function (request, response){
 				if(error){
 					console.log("error updating");
 				}else{
-					console.log("Updated");
+					response.json({"messagge": "update hecho"});
 					response.redirect("/customers");
 				}
 			});
@@ -91,8 +92,8 @@ exports.deleteCustomer = function (request, response){
 						if(error){
 							console.log("Error in query -Delete-");
 						}else{
-							 res.redirect('/customers');
-							console.log("Deleted");
+							res.redirect('/customers');
+							response.json({"messagge": "delete hecho"});
 						}
 					});
 			}

@@ -12,8 +12,16 @@ router.post('/customers/add', urlencodedParser, customers.postCustomer);
 router.post('/customers/edit/:id',urlencodedParser,customers.updateCustomer);
 
 
-
-
+//Auth routes
+/*router.test = function(request, response){
+	response.json({"message": "Success"});
+};
+*/
+var user = require("../controllers/user.js");
+router.get("/users", user.getUsers);
+router.get('/users/delete/:id', user.deleteUser);
+router.post("/users/add", urlencodedParser ,user.postUser);
+router.post('/users/edit/:id',urlencodedParser,user.updateUser);
 
 
 module.exports = router
