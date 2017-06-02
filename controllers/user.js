@@ -1,15 +1,6 @@
 //var jwt = require("jsonwebtoken");
 var bcrypt = require("bcryptjs");
-//var connection = require("../controllers/connection.js");
-var mysql = require("mysql");
-var connection = mysql.createPool({
-		connectionLimit: 50,
-		host: 'localhost',
-        user: 'root',
-        password : '',
-        database:'nodejs'
-});
-
+var connection = require("./connection.js");
 
 exports.getUsers = function(request,response){
 	var us = [];
@@ -19,10 +10,10 @@ exports.getUsers = function(request,response){
 				tempCont.release();
 			}else{
 					console.log("connected");
+
 					tempCont.query("SELECT * FROM users", function(error, rows){
 						tempCont.release();
 						if(error){
-								
 								console.log("Error in query");
 						}else{
 								var i = 0;
@@ -38,7 +29,6 @@ exports.getUsers = function(request,response){
 };
 
 exports.postUser = function(request, response){
-	//console.log(request.body);
 	var salt = bcrypt.genSaltSync(10);
 	var password = bcrypt.hashSync(request.body.password, salt);
 	var user = {
@@ -110,7 +100,6 @@ exports.deleteUser = function (request, response){
 						if(error){
 							console.log("Error in query -Delete-");
 						}else{
-							//response.redirect('/users');
 							response.json({"messagge": "delete hecho"});
 						}
 					});

@@ -1,12 +1,5 @@
-//var connection = require("../controllers/connection.js");
 var mysql = require("mysql");
-var connection = mysql.createPool({
-		connectionLimit: 50,
-		host: 'localhost',
-        user: 'root',
-        password : '',
-        database:'nodejs'
-});
+var connection = require("./connection.js");
 
 exports.getCustomers = function (request, response){
 		connection.getConnection(function(error, tempCont){
