@@ -18,7 +18,7 @@
   </p>
   </li>
   
-  <li>Entrar a la ruta del proyecto en cmd, escribir "node app.js"</li>
+  <li>Entrar a la ruta del proyecto en consola, escribir "node app.js"</li>
   <li> <b>url: localhost:3000/api </b></li>
 
 </ol
