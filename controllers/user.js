@@ -12,6 +12,7 @@ var connection = mysql.createPool({
 
 
 exports.getUsers = function(request,response){
+	var us = [];
 	connection.getConnection(function(error, tempCont){
 			if(error){
 				console.log("Error");
@@ -21,9 +22,15 @@ exports.getUsers = function(request,response){
 					tempCont.query("SELECT * FROM users", function(error, rows){
 						tempCont.release();
 						if(error){
+								
 								console.log("Error in query");
 						}else{
-								response.json(rows);
+								var i = 0;
+								for(user in rows){
+										us.push({"id":rows[i].id , "email": rows[i].email, "nombre": rows[i].nombre});
+										i++;
+								}
+								response.json(us);
 						}
 					});
 			}

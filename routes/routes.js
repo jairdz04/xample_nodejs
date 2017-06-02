@@ -11,12 +11,7 @@ router.get('/customers/delete/:id', customers.deleteCustomer);
 router.post('/customers/add', urlencodedParser, customers.postCustomer);
 router.post('/customers/edit/:id',urlencodedParser,customers.updateCustomer);
 
-
 //Auth routes
-/*router.test = function(request, response){
-	response.json({"message": "Success"});
-};
-*/
 var user = require("../controllers/user.js");
 router.get("/users", user.getUsers);
 router.get('/users/delete/:id', user.deleteUser);
