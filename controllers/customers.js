@@ -29,6 +29,7 @@ exports.postCustomer = function(request, response){
             "phone"   : request.body.phone 
         };
 
+        console.log(data);
 		if(error){
 			console.log("Error");
 			tempCont.release();
@@ -39,7 +40,6 @@ exports.postCustomer = function(request, response){
 					console.log("error inserting");
 				}else{
 					response.json({"messagge": "insert hecho"});
-					response.redirect("/customers");
 				}
 			});
 		}
@@ -66,7 +66,6 @@ exports.updateCustomer = function (request, response){
 					console.log("error updating");
 				}else{
 					response.json({"messagge": "update hecho"});
-					response.redirect("/customers");
 				}
 			});
 		}
@@ -85,7 +84,6 @@ exports.deleteCustomer = function (request, response){
 						if(error){
 							console.log("Error in query -Delete-");
 						}else{
-							res.redirect('/customers');
 							response.json({"messagge": "delete hecho"});
 						}
 					});
