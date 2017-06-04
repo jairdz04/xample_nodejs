@@ -1,7 +1,8 @@
 //var jwt = require("jsonwebtoken");
-var bcrypt = require("bcryptjs");
+//var bcrypt = require("bcryptjs");
+var crypto = require("crypto"),algorithm = "aes-256-ctr" ,password_crypto = "d6F3Efeq";
 var connection = require("./connection.js");
-
+	
 exports.getUsers = function(request,response){
 	var us = [];
 	connection.getConnection(function(error, tempCont){
@@ -29,12 +30,15 @@ exports.getUsers = function(request,response){
 };
 
 exports.postUser = function(request, response){
-	var salt = bcrypt.genSaltSync(10);
-	var password = bcrypt.hashSync(request.body.password, salt);
+	var password = request.body.password;
+	var cipher = crypto.createCipher(algorithm,password_crypto)
+  	var crypted = cipher.update(password,'utf8','hex')
+  	crypted += cipher.final('hex');
+
 	var user = {
 			email:request.body.email,
 			nombre:request.body.nombre,
-			password: password
+			password: crypted
 	};
 
 	connection.getConnection(function(error, tempCont){
@@ -60,13 +64,17 @@ exports.postUser = function(request, response){
 
 exports.updateUser = function(request, response){
 	var id = request.params.id;
-	var salt = bcrypt.genSaltSync(10);
-	var password = bcrypt.hashSync(request.body.password, salt);
+	var password = request.body.password;
+	var cipher = crypto.createCipher(algorithm,password_crypto);
+  	var crypted = cipher.update(password,'utf8','hex');
+  	crypted += cipher.final('hex');
+
+
 	connection.getConnection(function(error, tempCont){
 		var user = {
-            "email"    : request.body.email,
-            "nombre" : request.body.nombre,
-            "password"   : password
+            email    : request.body.email,
+            nombre : request.body.nombre,
+            password   : crypted
         };
         if(error){
 			console.log("Error");
@@ -78,7 +86,6 @@ exports.updateUser = function(request, response){
 					console.log("error updating");
 				}else{
 					response.json({"messagge": "update hecho"});
-					response.redirect("/users");
 				}
 			});
 		}

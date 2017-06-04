@@ -1,19 +1,18 @@
+var crypto = require("crypto"), algorithm = "aes-256-ctr" ,password_crypto = "d6F3Efeq";
 var jwt = require('jsonwebtoken');
-var bcrypt = require("bcryptjs");
 var connection = require("../connection.js");
 
 
 
 //verificar que el usuario exista, verificar respuestas de server status
 exports.authenticate = function (request, response){
-		var	email = request.body.email;
-		var salt = bcrypt.genSaltSync(10);
-		var password = bcrypt.hashSync(request.body.password, salt);
-//		var password = request.body.password
-
-	if(!email || !request.body.password){
+	if(!request.body.email || !request.body.password){
 		return response.status(400).send("Debes enviar las credenciales");		
 	}else{
+
+
+		var	email = request.body.email;
+		var password =request.body.password;
 		connection.getConnection(function(error, tempCont){
 		if(error){
 			console.log("Error");
@@ -27,20 +26,23 @@ exports.authenticate = function (request, response){
 					if(!rows){
 						return response.status(401).send("Email inexistente");
 					}
-					console.log(password);
-					console.log(rows[0].password);
-					if(password !== rows[0].password){
-						return response.status(401).send("la contraseña o el email no coinciden");
+					var decipher = crypto.createDecipher(algorithm,password_crypto);
+			  		var dec = decipher.update(rows[0].password,'hex','utf8');
+			  		dec += decipher.final('utf8');
+					
+
+					if(dec!== password){
+						return response.status(401).send("El email o la constraseña no coinciden");
 					}
 
-					var token = jwt.sign(rows, process.env.SECRET_KEY, {
+					var token = jwt.sign(rows[0], process.env.SECRET_KEY,{
 						expiresIn: 4000
 					});		
-
-					response.status(201).json({
+						response.status(201).json({
 						success: true,
-						token: token
+						token: token	
 					});
+
 				}
 			});
 		}
