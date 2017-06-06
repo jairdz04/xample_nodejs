@@ -26,7 +26,7 @@ exports.getUsers = function(request,response){
 			}
 		});
 };
-/*
+
 exports.getUserByID = function(request, response){
 	var us = [];
 	var email = request.body.email;
@@ -52,7 +52,7 @@ exports.getUserByID = function(request, response){
 			}
 		});
 };
-*/
+
 exports.postUser = function(request, response){
 	var password = request.body.password;
 	var cipher = crypto.createCipher(algorithm,password_crypto)
