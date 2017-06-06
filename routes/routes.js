@@ -23,6 +23,11 @@ process.env.SECRET_KEY = "myjwtokenkey";
 var auth = require("../controllers/auth/authenticate.js");
 router.post('/authenticate',urlencodedParser,auth.authenticate);
 
+//reset
+var reset = require("../controllers/auth/reset_password.js");
+process.env.NODE_TLS_REJECT_UNAUTHORIZED = "0";
+router.post('/reset-password',urlencodedParser,reset.send);
+
 module.exports = router
 
 

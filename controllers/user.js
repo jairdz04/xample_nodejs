@@ -1,5 +1,3 @@
-//var jwt = require("jsonwebtoken");
-//var bcrypt = require("bcryptjs");
 var crypto = require("crypto"),algorithm = "aes-256-ctr" ,password_crypto = "d6F3Efeq";
 var connection = require("./connection.js");
 	
@@ -28,7 +26,33 @@ exports.getUsers = function(request,response){
 			}
 		});
 };
-
+/*
+exports.getUserByID = function(request, response){
+	var us = [];
+	var email = request.body.email;
+	connection.getConnection(function(error, tempCont){
+			if(error){
+				console.log("Error");
+				tempCont.release();
+			}else{
+					console.log("connected");
+					tempCont.query("SELECT * FROM users WHERE email = ? ",email , function(error, rows){
+						tempCont.release();
+						if(error){
+								console.log("Error in query");
+						}else{
+								var i = 0;
+								for(user in rows){
+										us.push({"id":rows[i].id , "email": rows[i].email, "nombre": rows[i].nombre});
+										i++;
+								}
+								response.json(us);
+						}
+					});
+			}
+		});
+};
+*/
 exports.postUser = function(request, response){
 	var password = request.body.password;
 	var cipher = crypto.createCipher(algorithm,password_crypto)

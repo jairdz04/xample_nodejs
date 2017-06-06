@@ -12,6 +12,7 @@
     "express": "latest",
     "express-session": "^1.15.3",
     "jsonwebtoken": "^7.4.1",
-    "mysql": "latest"
+    "mysql": "latest",
+    "nodemailer": "^4.0.1"
   }
 }

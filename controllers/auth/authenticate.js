@@ -3,13 +3,10 @@ var jwt = require('jsonwebtoken');
 var connection = require("../connection.js");
 
 
-
-//verificar que el usuario exista, verificar respuestas de server status
 exports.authenticate = function (request, response){
 	if(!request.body.email || !request.body.password){
 		return response.status(400).send("Debes enviar las credenciales");		
 	}else{
-
 
 		var	email = request.body.email;
 		var password =request.body.password;
@@ -47,8 +44,7 @@ exports.authenticate = function (request, response){
 			});
 		}
 	});
-	}
-	
+  }	
 	
 };
 
