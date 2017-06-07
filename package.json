@@ -4,13 +4,10 @@
   "version": "0.0.1",
   "private": true,
   "dependencies": {
-    "bcryptjs": "^2.4.3",
     "body-parser": "^1.17.2",
-    "connect-flash": "^0.1.1",
     "cors": "^2.8.3",
     "crypto": "0.0.3",
     "express": "latest",
-    "express-session": "^1.15.3",
     "jsonwebtoken": "^7.4.1",
     "mysql": "latest",
     "nodemailer": "^4.0.1"
